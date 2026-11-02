@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">Shim icon</title>
+  <rect width="64" height="64" rx="15" fill="#111827"/>
+  <path d="M14 22l10 10-10 10" fill="none" stroke="#a78bfa" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M31 43h18" fill="none" stroke="#f9fafb" stroke-width="6" stroke-linecap="round"/>
+</svg>

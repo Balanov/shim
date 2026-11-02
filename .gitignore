@@ -1,0 +1,20 @@
+# Local toolchains and smoke-test state
+.tools/
+.tmp/
+
+# Binaries and release artifacts
+/shim
+/shim.exe
+/dist/
+*.test
+*.out
+coverage.txt
+
+# Editors and OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Local Shim state (installed skills can still live in project-specific standard dirs)
+.shim/sessions/
