@@ -81,7 +81,10 @@ func (a *Agent) Run(ctx context.Context, prompt string) (string, error) {
 			}
 			result, err := a.Executor.Execute(ctx, call)
 			if err != nil {
-				result = "Error: " + err.Error()
+				if result != "" {
+					result += "\n"
+				}
+				result += "Error: " + err.Error()
 			}
 			if result == "" {
 				result = "(no output)"
