@@ -86,17 +86,12 @@ func (c *stdioClient) Call(ctx context.Context, method string, params any, out a
 	if err := c.write(rpcRequest{JSONRPC: "2.0", ID: id, Method: method, Params: params}); err != nil {
 		return err
 	}
-	done := make(chan struct{})
-	defer close(done)
-	go func() {
-		select {
-		case <-ctx.Done():
-			if c.cmd.Process != nil {
-				_ = c.cmd.Process.Kill()
-			}
-		case <-done:
+	stopCancel := context.AfterFunc(ctx, func() {
+		if c.cmd.Process != nil {
+			_ = c.cmd.Process.Kill()
 		}
-	}()
+	})
+	defer stopCancel()
 	for c.scanner.Scan() {
 		var response rpcResponse
 		if err := json.Unmarshal(c.scanner.Bytes(), &response); err != nil {
