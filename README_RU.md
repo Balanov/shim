@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="docs/readme/hero.png" alt="SHIM — любые модели и инструменты через один небольшой адаптер для терминала" width="100%">
+  <img src="docs/readme/hero-v2.png" alt="SHIM — любые модели и инструменты через обычные фразы и подтверждение опасных команд" width="100%">
   <p><strong>Любые модели. Любые инструменты. Просто напишите.</strong></p>
   <p><a href="README.md">English</a> · <a href="#быстрый-старт">Быстрый старт</a> · <a href="#два-режима">Два режима</a> · <a href="docs/ARCHITECTURE.md">Архитектура</a> · <a href="#важные-свойства">Безопасность</a></p>
 </div>
