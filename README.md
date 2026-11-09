@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="docs/readme/hero-v2.png" alt="SHIM — any model and any tool through a documented natural-language CLI with confirmation for mutating commands" width="100%">
+  <img src="docs/readme/hero.png" alt="SHIM — any model, any tool, just type. One small adapter between the terminal, models, MCP, Skills and tools." width="100%">
   <p><strong>A tiny, local-first AI harness for people who prefer a terminal.</strong></p>
   <p>One static binary. Zero dependencies. No TUI. No telemetry. MIT.</p>
   <p>
