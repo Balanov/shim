@@ -1,17 +1,26 @@
-<p align="center">
-  <img src="assets/logo.svg" alt="Shim — Any model. Any tool. Just type." width="420">
-</p>
+<div align="center">
+  <img src="docs/readme/hero.png" alt="SHIM — any model, any tool, just type. One small adapter between the terminal, models, MCP, Skills and tools." width="100%">
+  <p><strong>A tiny, local-first AI harness for people who prefer a terminal.</strong></p>
+  <p>One static binary. Zero dependencies. No TUI. No telemetry. MIT.</p>
+  <p>
+    <a href="#install">Install</a> ·
+    <a href="#two-ways-to-use-it">Two ways to use it</a> ·
+    <a href="docs/ARCHITECTURE.md">Architecture</a> ·
+    <a href="#permissions-and-safety">Permissions</a> ·
+    <a href="README_RU.md">Русский</a>
+  </p>
+  <p>
+    <a href="https://github.com/Balanov/shim/actions/workflows/ci.yml"><img src="https://github.com/Balanov/shim/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+    <a href="https://github.com/Balanov/shim/releases/latest"><img src="https://img.shields.io/github/v/release/Balanov/shim" alt="Latest release"></a>
+    <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT license"></a>
+    <a href="go.mod"><img src="https://img.shields.io/badge/Go-1.25%2B-00ADD8?logo=go&logoColor=white" alt="Go 1.25+"></a>
+  </p>
+</div>
 
-<p align="center">
-  <strong>A tiny, local-first AI harness for people who prefer a terminal.</strong><br>
-  One static binary. Zero dependencies. No TUI. No telemetry. MIT.
-</p>
-
-<p align="center">
-  <a href="https://github.com/Balanov/shim/actions/workflows/ci.yml"><img src="https://github.com/Balanov/shim/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT license"></a>
-  <a href="https://github.com/Balanov/shim/releases"><img src="https://img.shields.io/badge/platform-Windows%20%C2%B7%20macOS%20%C2%B7%20Linux-lightgrey.svg" alt="Platforms"></a>
-</p>
+<div align="center">
+  <img src="docs/readme/demo.gif" alt="SHIM documented CLI example: a Russian request becomes an allowlisted discovery command, followed by confirmation and a tools command" width="100%">
+  <p><sub>The documented CLI flow from <a href="#two-ways-to-use-it">“Two ways to use it”</a>. Natural language becomes an allowlisted command; mutating commands require confirmation.</sub></p>
+</div>
 
 ## Why Shim?
 
@@ -27,6 +36,11 @@ Model-agnostic coding agents are everywhere. Setting them up is still too hard: 
 - **Own your state.** Plain JSON config and JSONL sessions. API keys come from environment variables and are never written to Shim's config.
 
 Measured on the maintainer's Windows machine for v0.1.0: **7.29 MiB** stripped binary and **9.96 ms median** process startup for `shim --version` over 30 runs. This is a local measurement, not a cross-platform performance guarantee.
+
+<div align="center">
+  <img src="docs/readme/architecture.png" alt="SHIM request flow from terminal through router and allowlist to the agent, with a separate permission gate for consequential actions" width="100%">
+  <p><sub>Router output is data, not authority. Every consequential tool crosses the same permission gate. <a href="docs/ARCHITECTURE.md">Full architecture and invariants</a>.</sub></p>
+</div>
 
 ## Install
 
