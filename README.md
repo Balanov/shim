@@ -7,6 +7,7 @@
     <a href="#two-ways-to-use-it">Two ways to use it</a> ·
     <a href="docs/ARCHITECTURE.md">Architecture</a> ·
     <a href="#permissions-and-safety">Permissions</a> ·
+    <a href="https://balanov.pro/shim/">Website</a> ·
     <a href="README_RU.md">Русский</a>
   </p>
   <p>
