@@ -4,11 +4,13 @@ import (
 	"bufio"
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"os"
 	"testing"
+	"time"
 
 	"github.com/Balanov/shim/internal/config"
 	"github.com/Balanov/shim/internal/tools"
@@ -41,6 +43,10 @@ func TestHelperProcess(t *testing.T) {
 			}
 			_ = json.Unmarshal(request.Params, &params)
 			result = map[string]any{"content": []any{map[string]any{"type": "text", "text": params.Arguments.Text}}}
+		case "wait":
+			for scanner.Scan() {
+			}
+			os.Exit(0)
 		default:
 			result = map[string]any{}
 		}
@@ -66,6 +72,52 @@ func TestStdioMCPTool(t *testing.T) {
 	result, err := tool.Run(context.Background(), json.RawMessage(`{"text":"hello"}`))
 	if err != nil || result != "hello" {
 		t.Fatalf("unexpected result: %q %v", result, err)
+	}
+}
+
+func TestStdioCompletedCallCancellation(t *testing.T) {
+	client, err := newStdio(context.Background(), os.Args[0], []string{"-test.run=^TestHelperProcess$"}, map[string]string{"SHIM_MCP_HELPER": "1"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer client.Close()
+
+	for i := 0; i < 200; i++ {
+		ctx, cancel := context.WithCancel(context.Background())
+		err := client.Call(ctx, "initialize", map[string]any{}, nil)
+		cancel()
+		if err != nil {
+			t.Fatalf("call %d after canceling a completed call: %v", i, err)
+		}
+	}
+	if err := client.Call(context.Background(), "initialize", map[string]any{}, nil); err != nil {
+		t.Fatalf("server did not survive cancellation of completed calls: %v", err)
+	}
+}
+
+func TestStdioCallCancellation(t *testing.T) {
+	client, err := newStdio(context.Background(), os.Args[0], []string{"-test.run=^TestHelperProcess$"}, map[string]string{"SHIM_MCP_HELPER": "1"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer client.Close()
+	if err := client.Call(context.Background(), "initialize", map[string]any{}, nil); err != nil {
+		t.Fatal(err)
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 100*time.Millisecond)
+	defer cancel()
+	done := make(chan error, 1)
+	go func() {
+		done <- client.Call(ctx, "wait", map[string]any{}, nil)
+	}()
+	select {
+	case err := <-done:
+		if !errors.Is(err, context.DeadlineExceeded) {
+			t.Fatalf("expected canceled read to return its context error, got %v", err)
+		}
+	case <-time.After(5 * time.Second):
+		t.Fatal("cancellation did not unblock the MCP call")
 	}
 }
 
