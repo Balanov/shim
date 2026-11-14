@@ -252,6 +252,14 @@ The codebase uses only the Go standard library. See [Architecture](docs/ARCHITEC
 - context compaction and richer session export;
 - additional deterministic language packs and provider conformance tests.
 
+## Related projects
+
+- [uncut](https://github.com/Balanov/uncut) — the lossless, headless coding-agent harness.
+- [skein](https://github.com/Balanov/skein) — fail-closed swarm orchestration with epoch-fenced work.
+- [latch](https://github.com/Balanov/latch) — one tiny HTTPS contract between any agent and any service.
+- [verdict](https://github.com/Balanov/verdict) — a local semantic verifier for agent tool calls.
+
+
 ## License
 
 [MIT](LICENSE). Fork it, modify it, embed it, ship it.
