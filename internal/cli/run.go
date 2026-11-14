@@ -75,13 +75,14 @@ func (a *App) runPrompt(ctx context.Context, prompt, modelName, resume string, m
 	}
 	messages := []provider.Message{{Role: "system", Content: agent.SystemPrompt(a.Workspace, a.Lang, skillManager)}}
 	if resume != "" {
-		messages, err = a.Store.Resume(resume)
+		stored, err := a.Store.Resume(resume)
 		if err != nil {
 			return "", err
 		}
-		if len(messages) > 0 && messages[0].Role == "system" {
-			messages[0].Content = agent.SystemPrompt(a.Workspace, a.Lang, skillManager)
+		if len(stored) > 0 && stored[0].Role == "system" {
+			stored = stored[1:]
 		}
+		messages = append(messages, stored...)
 	}
 	executor := &tools.Executor{Registry: registry, Mode: mode, Language: a.Lang, Input: a.Reader, Output: a.Out}
 	runner := &agent.Agent{
