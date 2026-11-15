@@ -1,3 +1,8 @@
+## 0.1.1 - 2026-11-15
+
+### Fixed
+
+- A resumed session sends the system prompt again. It is built fresh on every run and the stored messages follow it, so `--resume` no longer runs without the workspace path, AGENTS.md and the skills list. The session file stays append-only.
 # Changelog
 
 ## 0.1.0 — 2026-11-02
