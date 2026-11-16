@@ -204,14 +204,19 @@ func (c *httpClient) roundTrip(ctx context.Context, request rpcRequest) (rpcResp
 	if strings.Contains(resp.Header.Get("Content-Type"), "text/event-stream") {
 		scanner := bufio.NewScanner(io.LimitReader(resp.Body, 16<<20))
 		scanner.Buffer(make([]byte, 64*1024), 16<<20)
+		var data []string
 		for scanner.Scan() {
 			line := scanner.Text()
-			if !strings.HasPrefix(line, "data:") {
+			if line == "" {
+				var event rpcResponse
+				if err := json.Unmarshal([]byte(strings.Join(data, "\n")), &event); err == nil && (request.ID == 0 || event.ID == request.ID) {
+					return event, nil
+				}
+				data = data[:0]
 				continue
 			}
-			payload := strings.TrimSpace(strings.TrimPrefix(line, "data:"))
-			if err := json.Unmarshal([]byte(payload), &response); err == nil && (request.ID == 0 || response.ID == request.ID) {
-				return response, nil
+			if strings.HasPrefix(line, "data:") {
+				data = append(data, strings.TrimPrefix(strings.TrimPrefix(line, "data:"), " "))
 			}
 		}
 		return rpcResponse{}, fmt.Errorf("MCP SSE stream ended without a response")
