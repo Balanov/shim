@@ -16,7 +16,7 @@ import (
 	"github.com/Balanov/shim/internal/session"
 )
 
-const Version = "0.1.1"
+const Version = "0.1.2"
 
 type App struct {
 	In        io.Reader
