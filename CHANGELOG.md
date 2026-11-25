@@ -1,3 +1,9 @@
+## 0.1.2 — 2026-11-25
+
+### Fixed
+
+- The MCP HTTP client decodes a complete SSE event instead of every `data:` line. A valid multi-line event, including one that carries the initialize reply, is accepted; the request-id filtering and the transport limits are unchanged.
+
 ## 0.1.1 - 2026-11-15
 
 ### Fixed
