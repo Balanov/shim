@@ -260,6 +260,11 @@ The codebase uses only the Go standard library. See [Architecture](docs/ARCHITEC
 - [verdict](https://github.com/Balanov/verdict) — a local semantic verifier for agent tool calls.
 
 
+## Related
+
+- [pact](https://github.com/Balanov/pact) — a tiny contract for agent-initiated payments: quote, consent, commit, receipt, chained by digests.
+- [attest](https://github.com/Balanov/attest) — offline verifier for PACT trails: one static Go binary, standard library only.
+
 ## License
 
 [MIT](LICENSE). Fork it, modify it, embed it, ship it.
